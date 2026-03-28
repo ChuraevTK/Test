@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Хроники пластической хирургии | Эжен Знаменский</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #050507;
+            --bg-card: #14141c;
+            --text-primary: #eef2ff;
+            --text-secondary: #b9c7d9;
+            --text-muted: #8a8a9a;
+            --border-color: #2a2a2e;
+            --accent: #e2584c;
+            --accent-hover: #ff6b5e;
+            --accent-light: rgba(226, 88, 76, 0.2);
+            --shadow: rgba(0,0,0,0.3);
+        }
+
+        body.light-theme {
+            --bg-primary: #fef5f5;
+            --bg-secondary: #fff5f5;
+            --bg-card: #ffffff;
+            --text-primary: #2c1810;
+            --text-secondary: #5a3a30;
+            --text-muted: #8a6a60;
+            --border-color: #e0c8c0;
+            --accent: #9a1a3a;
+            --accent-hover: #b82a4a;
+            --accent-light: rgba(154, 26, 58, 0.12);
+            --shadow: rgba(0,0,0,0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        button {
+            background: none;
+            border: none;
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .site-header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding: 12px 0;
+            gap: 12px;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), #ff8a7a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .theme-toggle, .lang-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 40px;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            color: var(--text-primary);
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .theme-toggle:hover, .lang-btn:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .lang-btn.active {
+            background: var(--accent);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .theme-toggle .theme-text {
+                display: none;
+            }
+            .theme-toggle {
+                padding: 8px 12px;
+            }
+        }
+
+        /* ГЛАВНАЯ СТРАНИЦА - КРУПНЫЙ ЗАГОЛОВОК */
+        .hero-title {
+            text-align: center;
+            padding: 60px 20px 30px;
+        }
+
+        .hero-title h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--text-primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-title p {
+            color: var(--text-secondary);
+            margin-top: 16px;
+            font-size: 1rem;
+        }
+
+        .issues-section {
+            padding: 20px 20px 40px;
+        }
+
+        .issues-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 24px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .issue-card {
+            background: var(--bg-card);
+            border-radius: 28px;
+            padding: 28px 36px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid var(--border-color);
+            min-width: 220px;
+        }
+
+        .issue-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent);
+            background: var(--bg-secondary);
+        }
+
+        .issue-number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .issue-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .issue-badge {
+            margin-top: 12px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .feedback-section {
+            background: var(--bg-card);
+            border-radius: 32px;
+            padding: 32px 24px;
+            margin: 20px 0 40px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .feedback-section h2 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            color: var(--accent);
+        }
+
+        .feedback-desc {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            font-size: 0.9rem;
+        }
+
+        .feedback-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .feedback-card {
+            background: var(--bg-primary);
+            border-radius: 28px;
+            padding: 14px 24px;
+            text-decoration: none;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s;
+        }
+
+        .feedback-card:hover {
+            border-color: var(--accent);
+            background: var(--bg-secondary);
+        }
+
+        .feedback-icon {
+            font-size: 1.4rem;
+        }
+
+        .feedback-info {
+            text-align: left;
+        }
+
+        .feedback-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .feedback-value {
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            font-size: 0.8rem;
+        }
+
+        /* ========== ЧИТАЛКА ========== */
+        .reader-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-primary);
+            z-index: 1000;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .reader-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 16px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            gap: 12px;
+        }
+
+        .reader-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        /* Крестик слева */
+        .close-reader {
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-primary);
+            padding: 0 8px 0 4px;
+            line-height: 1;
+            order: -1;
+            flex-shrink: 0;
+        }
+
+        .close-reader:hover {
+            color: var(--accent);
+        }
+
+        .reader-header-left strong {
+            font-size: 0.85rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex-shrink: 1;
+        }
+
+        .custom-select {
+            position: relative;
+            min-width: 140px;
+            flex-shrink: 0;
+        }
+
+        .select-trigger {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            padding: 6px 14px;
+            font-size: 0.8rem;
+            color: var(--text-primary);
+            cursor: pointer;
+            gap: 8px;
+        }
+
+        .select-trigger:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        .select-trigger .arrow {
+            font-size: 8px;
+        }
+
+        .select-dropdown {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            right: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            z-index: 1001;
+            display: none;
+        }
+
+        .custom-select.open .select-dropdown {
+            display: block;
+        }
+
+        .select-option {
+            padding: 10px 14px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            background: var(--bg-card);
+            color: var(--text-primary);
+        }
+
+        .select-option:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        .reader-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .reader-controls .theme-toggle,
+        .reader-controls .lang-btn {
+            padding: 6px 10px;
+            font-size: 0.75rem;
+        }
+
+        @media (max-width: 768px) {
+            .reader-controls .theme-toggle .theme-text {
+                display: none;
+            }
+            .reader-controls .theme-toggle {
+                padding: 8px 10px;
+            }
+        }
+
+        .swiper-container {
+            width: 100%;
+            height: calc(100% - 60px);
+        }
+
+        .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--bg-primary);
+        }
+
+        .comic-page-image {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .swiper-button-next, .swiper-button-prev {
+            color: var(--accent);
+            width: 30px;
+            height: 30px;
+        }
+
+        .swiper-button-next:after, .swiper-button-prev:after {
+            font-size: 20px;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .hero-title h1 { font-size: 2rem; }
+            .container { padding: 0 16px; }
+            .issue-card { padding: 20px 24px; min-width: 160px; }
+            .issue-number { font-size: 1.4rem; }
+            .reader-header { padding: 8px 12px; gap: 8px; }
+            .reader-header-left { gap: 8px; }
+            .custom-select { min-width: 120px; }
+            .select-trigger { padding: 5px 10px; font-size: 0.7rem; }
+            .reader-header-left strong { font-size: 0.7rem; }
+            .swiper-container { height: calc(100% - 100px); }
+            .swiper-button-next, .swiper-button-prev { display: none; }
+            .feedback-card { padding: 10px 18px; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="mainPage">
+    <div class="site-header">
+        <div class="container header-inner">
+            <div class="logo">✨ Хроники пластической хирургии ✨</div>
+            <div class="header-controls">
+                <button class="theme-toggle" id="themeToggleBtn">
+                    <span id="themeIcon">🌙</span>
+                    <span class="theme-text" id="themeText">Dark</span>
+                </button>
+                <button class="lang-btn" data-lang="ru">🇷🇺 RU</button>
+                <button class="lang-btn" data-lang="en">🇬🇧 EN</button>
+                <button class="lang-btn" data-lang="de">🇩🇪 DE</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- КРУПНЫЙ ЗАГОЛОВОК -->
+    <div class="hero-title">
+        <h1 id="mainTitle">Хроники пластической хирургии<br>Эжена Знаменского</h1>
+        <p id="mainSubtitle">Интерактивный веб-комикс с глубоким лором</p>
+    </div>
+
+    <div class="issues-section">
+        <div class="issues-grid" id="issuesGrid"></div>
+    </div>
+
+    <div class="container">
+        <div class="feedback-section">
+            <h2 id="feedbackTitle">📬 Связь с автором</h2>
+            <p id="feedbackDesc" class="feedback-desc">Вопросы, предложения, отзывы — напишите мне!</p>
+            <div class="feedback-grid">
+                <a href="mailto:znamensky@example.com" class="feedback-card">
+                    <div class="feedback-icon">📧</div>
+                    <div class="feedback-info">
+                        <div class="feedback-label">Email</div>
+                        <div class="feedback-value">znamensky@example.com</div>
+                    </div>
+                </a>
+                <a href="https://t.me/znamensky" target="_blank" class="feedback-card">
+                    <div class="feedback-icon">💬</div>
+                    <div class="feedback-info">
+                        <div class="feedback-label">Telegram</div>
+                        <div class="feedback-value">@znamensky</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p id="footerText">© 2025 Эжен Знаменский — медицинские хроники</p>
+    </footer>
+</div>
+
+<div id="readerPage" class="reader-page">
+    <div class="reader-header">
+        <button class="close-reader" id="closeReaderBtn">✕</button>
+        <div class="reader-header-left">
+            <strong id="readerTitle">📖 Хроники пластической хирургии</strong>
+            <div class="custom-select" id="chapterSelect">
+                <div class="select-trigger">
+                    <span id="selectedChapterText">Главы</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="select-dropdown" id="chapterDropdown"></div>
+            </div>
+        </div>
+        <div class="reader-controls">
+            <button class="lang-btn" data-lang="ru" id="readerLangRu">🇷🇺</button>
+            <button class="lang-btn" data-lang="en" id="readerLangEn">🇬🇧</button>
+            <button class="lang-btn" data-lang="de" id="readerLangDe">🇩🇪</button>
+            <button class="theme-toggle" id="readerThemeToggle">
+                <span id="readerThemeIcon">🌙</span>
+                <span class="theme-text">Dark</span>
+            </button>
+        </div>
+    </div>
+    <div class="swiper-container" id="comicSwiper">
+        <div class="swiper-wrapper" id="swiperWrapper"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+    // ========== СТРАНИЦЫ КОМИКСА ==========
+    const allPages = [];
+    for (let i = 1; i <= 19; i++) {
+        allPages.push(`images/Комикс Выпуск №1_стр${i}.jpg`);
+    }
+
+    const chapters = [
+        { name: { ru: "Обложка и аннотация", en: "Cover & Intro", de: "Cover & Einleitung" }, startPage: 0, endPage: 1 },
+        { name: { ru: "Глава 1: Больше!", en: "Chapter 1: More!", de: "Kapitel 1: Mehr!" }, startPage: 2, endPage: 3 },
+        { name: { ru: "Глава 2: Парафин", en: "Chapter 2: Paraffin", de: "Kapitel 2: Paraffin" }, startPage: 4, endPage: 6 },
+        { name: { ru: "Глава 3: К черту", en: "Chapter 3: To Hell", de: "Kapitel 3: Zur Hölle" }, startPage: 7, endPage: 9 },
+        { name: { ru: "Глава 4: Флинт и старец", en: "Chapter 4: Flint & The Elder", de: "Kapitel 4: Flint & der Alte" }, startPage: 10, endPage: 12 },
+        { name: { ru: "Глава 5: Круговерть", en: "Chapter 5: Whirlwind", de: "Kapitel 5: Wirbel" }, startPage: 13, endPage: 17 }
+    ];
+
+    const issuesData = {
+        1: {
+            title: { ru: "Выпуск 1", en: "Issue 1", de: "Ausgabe 1" },
+            chapters: chapters,
+            totalPages: 19
+        },
+        2: {
+            title: { ru: "Выпуск 2", en: "Issue 2", de: "Ausgabe 2" },
+            isComingSoon: true
+        }
+    };
+
+    let currentLang = localStorage.getItem('comic-lang') || 'ru';
+    let currentIssueId = null;
+    let currentSwiper = null;
+
+    const translations = {
+        ru: { mainTitle: "Хроники пластической хирургии\nЭжена Знаменского", mainSubtitle: "Интерактивный веб-комикс с глубоким лором", footerText: "© 2025 Эжен Знаменский — медицинские хроники", feedbackTitle: "📬 Связь с автором", feedbackDesc: "Вопросы, предложения, отзывы — напишите мне!", comingSoon: "Скоро будет", selectPlaceholder: "Главы", readerTitle: "📖 Хроники пластической хирургии" },
+        en: { mainTitle: "Chronicles of Plastic Surgery\nEugene Znamensky", mainSubtitle: "Interactive webcomic with deep lore", footerText: "© 2025 Eugene Znamensky — medical chronicles", feedbackTitle: "📬 Contact the Author", feedbackDesc: "Questions, suggestions, feedback — reach out!", comingSoon: "Coming soon", selectPlaceholder: "Chapters", readerTitle: "📖 Chronicles of Plastic Surgery" },
+        de: { mainTitle: "Chroniken der Plastischen Chirurgie\nEugen Znamenski", mainSubtitle: "Interaktiver Webcomic mit tiefer Überlieferung", footerText: "© 2025 Eugen Znamenski — medizinische Chroniken", feedbackTitle: "📬 Kontakt zum Autor", feedbackDesc: "Fragen, Vorschläge, Feedback — schreib mir!", comingSoon: "Demnächst", selectPlaceholder: "Kapitel", readerTitle: "📖 Chroniken der Plastischen Chirurgie" }
+    };
+
+    function updateUILang() {
+        document.getElementById('mainTitle').innerHTML = translations[currentLang].mainTitle.replace('\n', '<br>');
+        document.getElementById('mainSubtitle').textContent = translations[currentLang].mainSubtitle;
+        document.getElementById('footerText').textContent = translations[currentLang].footerText;
+        document.getElementById('feedbackTitle').textContent = translations[currentLang].feedbackTitle;
+        document.getElementById('feedbackDesc').textContent = translations[currentLang].feedbackDesc;
+        document.getElementById('readerTitle').innerHTML = translations[currentLang].readerTitle;
+        document.getElementById('selectedChapterText').textContent = translations[currentLang].selectPlaceholder;
+        
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            if (btn.dataset.lang === currentLang) btn.classList.add('active');
+            else btn.classList.remove('active');
+        });
+        
+        renderIssuesGrid();
+        if (currentIssueId !== null && document.getElementById('readerPage').style.display === 'flex' && issuesData[currentIssueId]?.chapters) {
+            updateChapterSelectUI();
+        }
+    }
+
+    function renderIssuesGrid() {
+        const grid = document.getElementById('issuesGrid');
+        grid.innerHTML = '';
+        for (let id in issuesData) {
+            const issue = issuesData[id];
+            const card = document.createElement('div');
+            card.className = 'issue-card';
+            if (issue.isComingSoon) {
+                card.innerHTML = `
+                    <div class="issue-number">Выпуск ${id}</div>
+                    <div class="issue-title">${issue.title[currentLang]}</div>
+                    <div class="issue-badge">${translations[currentLang].comingSoon}</div>
+                `;
+                card.style.opacity = '0.7';
+            } else {
+                card.innerHTML = `
+                    <div class="issue-number">Выпуск ${id}</div>
+                    <div class="issue-title">${issue.title[currentLang]}</div>
+                `;
+                card.onclick = () => {
+                    currentIssueId = parseInt(id);
+                    openReader();
+                };
+            }
+            grid.appendChild(card);
+        }
+    }
+
+    function updateChapterSelectUI() {
+        const issue = issuesData[currentIssueId];
+        if (!issue?.chapters) return;
+        const dropdown = document.getElementById('chapterDropdown');
+        dropdown.innerHTML = '';
+        
+        issue.chapters.forEach((chapter, idx) => {
+            const option = document.createElement('div');
+            option.className = 'select-option';
+            option.textContent = chapter.name[currentLang];
+            option.onclick = (e) => {
+                e.stopPropagation();
+                const startPage = chapter.startPage;
+                if (currentSwiper) {
+                    currentSwiper.slideTo(startPage, 0);
+                }
+                document.getElementById('chapterSelect').classList.remove('open');
+            };
+            dropdown.appendChild(option);
+        });
+    }
+
+    function loadFullComic() {
+        const issue = issuesData[currentIssueId];
+        if (!issue?.chapters) return;
+        const wrapper = document.getElementById('swiperWrapper');
+        wrapper.innerHTML = '';
+        
+        for (let i = 0; i < issue.totalPages; i++) {
+            const slide = document.createElement('div');
+            slide.className = 'swiper-slide';
+            const container = document.createElement('div');
+            container.style.display = 'flex';
+            container.style.justifyContent = 'center';
+            container.style.alignItems = 'center';
+            container.style.width = '100%';
+            container.style.height = '100%';
+            const img = document.createElement('img');
+            img.src = allPages[i];
+            img.className = 'comic-page-image';
+            img.style.maxWidth = '100%';
+            img.style.maxHeight = '100%';
+            img.style.objectFit = 'contain';
+            container.appendChild(img);
+            slide.appendChild(container);
+            wrapper.appendChild(slide);
+        }
+        
+        if (currentSwiper) currentSwiper.destroy(true, true);
+        currentSwiper = new Swiper('#comicSwiper', {
+            direction: 'horizontal',
+            loop: false,
+            slidesPerView: 1,
+            spaceBetween: 0,
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            pagination: { el: '.swiper-pagination', type: 'fraction' },
+            keyboard: { enabled: true },
+            touchRatio: 1,
+            simulateTouch: true
+        });
+        
+        updateChapterSelectUI();
+    }
+
+    function openReader() {
+        if (issuesData[currentIssueId]?.isComingSoon) return;
+        loadFullComic();
+        document.getElementById('mainPage').style.display = 'none';
+        document.getElementById('readerPage').style.display = 'flex';
+    }
+
+    function closeReader() {
+        if (currentSwiper) currentSwiper.destroy(true, true);
+        document.getElementById('readerPage').style.display = 'none';
+        document.getElementById('mainPage').style.display = 'block';
+        currentIssueId = null;
+    }
+
+    function setTheme(theme) {
+        const isLight = theme === 'light';
+        if (isLight) {
+            document.body.classList.add('light-theme');
+            localStorage.setItem('comic-theme', 'light');
+        } else {
+            document.body.classList.remove('light-theme');
+            localStorage.setItem('comic-theme', 'dark');
+        }
+        
+        const themeIcon = document.getElementById('themeIcon');
+        const themeText = document.getElementById('themeText');
+        const readerThemeIcon = document.getElementById('readerThemeIcon');
+        const readerThemeText = document.querySelector('#readerThemeToggle .theme-text');
+        
+        if (isLight) {
+            if (themeIcon) themeIcon.textContent = '☀️';
+            if (themeText) themeText.textContent = 'Light';
+            if (readerThemeIcon) readerThemeIcon.textContent = '☀️';
+            if (readerThemeText) readerThemeText.textContent = 'Light';
+        } else {
+            if (themeIcon) themeIcon.textContent = '🌙';
+            if (themeText) themeText.textContent = 'Dark';
+            if (readerThemeIcon) readerThemeIcon.textContent = '🌙';
+            if (readerThemeText) readerThemeText.textContent = 'Dark';
+        }
+    }
+    
+    function toggleTheme() {
+        const isLight = document.body.classList.contains('light-theme');
+        setTheme(isLight ? 'dark' : 'light');
+    }
+    
+    function detectSystemTheme() {
+        const saved = localStorage.getItem('comic-theme');
+        if (saved) setTheme(saved);
+        else setTheme(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    }
+    
+    function setLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem('comic-lang', lang);
+        updateUILang();
+    }
+
+    detectSystemTheme();
+    document.getElementById('themeToggleBtn').addEventListener('click', toggleTheme);
+    if (document.getElementById('readerThemeToggle')) {
+        document.getElementById('readerThemeToggle').addEventListener('click', toggleTheme);
+    }
+    document.querySelectorAll('.lang-btn').forEach(btn => btn.addEventListener('click', () => setLanguage(btn.dataset.lang)));
+    document.getElementById('closeReaderBtn').addEventListener('click', closeReader);
+    
+    const customSelect = document.getElementById('chapterSelect');
+    if (customSelect) {
+        const selectTrigger = customSelect.querySelector('.select-trigger');
+        selectTrigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            customSelect.classList.toggle('open');
+        });
+        document.addEventListener('click', () => { customSelect.classList.remove('open'); });
+    }
+    
+    renderIssuesGrid();
+    setLanguage(currentLang);
+    window.addEventListener('popstate', () => { if (document.getElementById('readerPage').style.display === 'flex') closeReader(); });
+</script>
+</body>
+</html>
