@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Хроники пластической хирургии | Эжен Знаменский</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        @font-face {
+            font-family: 'Ramona Bold';
+            src: url('https://cdn.jsdelivr.net/gh/ChuraevTK/Test/fonts/Ramona-Bold.woff2') format('woff2');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'Ramona Light';
+            src: url('https://cdn.jsdelivr.net/gh/ChuraevTK/Test/fonts/Ramona-Light.woff2') format('woff2');
+            font-weight: 300;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        /* Светлая тема (по умолчанию) */
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --text-primary: #2c1810;
+            --text-secondary: #5a3a30;
+            --text-muted: #8a6a60;
+            --border-color: #e8ddd5;
+            --accent: #9a1a3a;
+            --accent-hover: #b82a4a;
+            --accent-light: rgba(154, 26, 58, 0.05);
+            --shadow: rgba(0,0,0,0.1);
+        }
+        
+        /* Темная тема */
+        body.dark-theme {
+            --bg-primary: #1a1a1e;
+            --bg-secondary: #0f0f12;
+            --bg-card: #25252c;
+            --text-primary: #eef2ff;
+            --text-secondary: #b9c7d9;
+            --text-muted: #8a8a9a;
+            --border-color: #3a3a44;
+            --accent: #e2584c;
+            --accent-hover: #ff6b5e;
+            --accent-light: rgba(226, 88, 76, 0.15);
+            --shadow: rgba(0,0,0,0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Ramona Light', 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.5;
+            min-height: 100vh;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        button {
+            background: none;
+            border: none;
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        /* ШАПКА */
+        .site-header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 200;
+            padding: 16px 0;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .burger-btn {
+            background: transparent;
+            border: none;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .burger-line {
+            width: 26px;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: bold;
+            font-family: 'Ramona Bold', sans-serif;
+            color: var(--accent);
+            cursor: pointer;
+        }
+
+        /* Боковое меню */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            left: -320px;
+            width: 320px;
+            height: 100%;
+            background: var(--bg-primary);
+            z-index: 1000;
+            transition: left 0.3s ease;
+            box-shadow: 2px 0 20px var(--shadow);
+            overflow-y: auto;
+            padding: 70px 24px 40px;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .side-menu.open {
+            left: 0;
+        }
+
+        .menu-close {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--accent);
+            background: none;
+            border: none;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menu-items {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .menu-item {
+            padding: 14px 18px;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: all 0.2s;
+            color: var(--accent);
+            font-size: 1rem;
+            font-family: 'Ramona Bold', sans-serif;
+            border: 1px solid var(--border-color);
+            background: var(--bg-primary);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .menu-item:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .menu-divider {
+            height: 1px;
+            background: var(--border-color);
+            margin: 16px 0;
+        }
+
+        .menu-lang-group {
+            display: flex;
+            gap: 12px;
+            padding: 8px 0;
+            justify-content: center;
+        }
+
+        .menu-lang-option {
+            padding: 8px 16px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            background: var(--accent-light);
+            font-family: 'Ramona Light', sans-serif;
+            color: var(--accent);
+            border: 1px solid var(--border-color);
+        }
+
+        .menu-lang-option.active {
+            background: var(--accent);
+            color: white;
+        }
+
+        .menu-theme {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .menu-footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ОСНОВНОЙ КОНТЕНТ */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 24px;
+        }
+
+        .controls-panel {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .issue-selector, .chapter-selector {
+            position: relative;
+            min-width: 180px;
+        }
+
+        .select-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 40px;
+            padding: 10px 20px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--accent);
+            cursor: pointer;
+            gap: 12px;
+            font-family: 'Ramona Bold', sans-serif;
+            background: var(--bg-primary);
+            box-shadow: 0 2px 6px var(--shadow);
+        }
+
+        .select-btn:hover {
+            background: var(--accent-light);
+        }
+
+        .select-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            right: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            z-index: 100;
+            display: none;
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .issue-selector.open .select-dropdown,
+        .chapter-selector.open .select-dropdown {
+            display: block;
+        }
+
+        .select-option {
+            padding: 12px 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            background: var(--bg-card);
+            color: var(--accent);
+            transition: all 0.2s;
+        }
+
+        .select-option:hover {
+            background: var(--accent-light);
+        }
+
+        .select-option.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Слайдер */
+        .comic-slider-container {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .comic-swiper {
+            width: 100%;
+            height: auto;
+            overflow: hidden;
+        }
+
+        .swiper-wrapper {
+            display: flex;
+        }
+
+        .swiper-slide {
+            flex-shrink: 0;
+            width: 100%;
+            height: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: transparent;
+        }
+
+        .comic-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .comic-slide img {
+            max-width: 100%;
+            width: auto;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px var(--shadow);
+        }
+
+        .swiper-button-next, .swiper-button-prev {
+            color: var(--accent);
+            width: 44px;
+            height: 44px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            transition: all 0.2s;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px var(--shadow);
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .swiper-button-next {
+            right: 16px;
+        }
+
+        .swiper-button-prev {
+            left: 16px;
+        }
+
+        .swiper-button-next:after, .swiper-button-prev:after {
+            font-size: 20px;
+            font-weight: bold;
+            content: '›';
+            font-family: monospace;
+        }
+
+        .swiper-button-prev:after {
+            content: '‹';
+        }
+
+        .swiper-button-next:hover, .swiper-button-prev:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .swiper-pagination {
+            position: relative;
+            margin-top: 20px;
+            bottom: auto;
+            text-align: center;
+        }
+
+        .swiper-pagination-fraction {
+            font-family: 'Ramona Light', monospace;
+            color: var(--accent);
+            font-size: 0.9rem;
+            background: transparent;
+            display: inline-block;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .contacts-page, .news-page {
+            max-width: 700px;
+            margin: 40px auto;
+            text-align: center;
+        }
+
+        .contacts-page h2, .news-page h2 {
+            color: var(--accent);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            font-family: 'Ramona Bold', sans-serif;
+        }
+
+        .contacts-page p {
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+
+        .contacts-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .contact-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 40px;
+            padding: 12px 28px;
+            text-decoration: none;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Ramona Light', sans-serif;
+            transition: all 0.2s;
+            box-shadow: 0 2px 4px var(--shadow);
+        }
+
+        .contact-btn:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        .news-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 20px;
+            text-align: left;
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+
+        .news-item h3 {
+            color: var(--accent);
+            margin-bottom: 10px;
+            font-family: 'Ramona Bold', sans-serif;
+        }
+
+        .news-date {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 12px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            margin-top: 50px;
+            font-size: 0.7rem;
+        }
+
+        @media (max-width: 768px) {
+            .logo { font-size: 1.2rem; }
+            .side-menu { width: 280px; left: -280px; }
+            .controls-panel { flex-direction: column; gap: 12px; }
+            .issue-selector, .chapter-selector { width: 100%; }
+            .swiper-button-next, .swiper-button-prev { width: 36px; height: 36px; }
+            .swiper-button-next { right: 8px; }
+            .swiper-button-prev { left: 8px; }
+            .contacts-buttons { flex-direction: column; align-items: center; }
+            .contact-btn { width: 100%; justify-content: center; }
+            .comic-slide img { max-height: 65vh; border-radius: 8px; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <div class="site-header">
+        <div class="header-inner">
+            <div class="header-left">
+                <button class="burger-btn" id="burgerBtn">
+                    <span class="burger-line"></span>
+                    <span class="burger-line"></span>
+                    <span class="burger-line"></span>
+                </button>
+                <div class="logo" id="homeLogo">Хроники пластической хирургии</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="side-menu" id="sideMenu">
+        <button class="menu-close" id="menuCloseBtn">✕</button>
+        <div class="menu-items">
+            <div class="menu-item" id="homeMenuItem">🏠 На главную</div>
+            <div class="menu-item" id="newsMenuItem">📰 Новости</div>
+            <div class="menu-item" id="contactsMenuItem">📬 Контакты</div>
+            <div class="menu-divider"></div>
+            <div class="menu-lang-group" id="menuLangGroup">
+                <div class="menu-lang-option" data-lang="ru">RU</div>
+                <div class="menu-lang-option" data-lang="en">EN</div>
+                <div class="menu-lang-option" data-lang="de">DE</div>
+            </div>
+            <div class="menu-divider"></div>
+            <div class="menu-item menu-theme" id="menuThemeItem">
+                <span id="themeIcon">☀️</span>
+                <span id="themeText">Светлая тема</span>
+            </div>
+            <div class="menu-footer" id="menuLicense">
+                © 2025 Эжен Знаменский<br>
+                Все права защищены
+            </div>
+        </div>
+    </div>
+
+    <div id="mainPage" class="page active">
+        <div class="main-container">
+            <div class="controls-panel">
+                <div class="issue-selector" id="issueSelector">
+                    <div class="select-btn">
+                        <span id="selectedIssue">Выпуск 1</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="select-dropdown" id="issueDropdown"></div>
+                </div>
+                <div class="chapter-selector" id="chapterSelector">
+                    <div class="select-btn">
+                        <span id="selectedChapter">Главы</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="select-dropdown" id="chapterDropdown"></div>
+                </div>
+            </div>
+
+            <div class="comic-slider-container">
+                <div class="swiper-container comic-swiper" id="comicSwiper">
+                    <div class="swiper-wrapper" id="swiperWrapper"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="newsPage" class="page">
+        <div class="main-container">
+            <div class="news-page">
+                <h2 id="newsTitle">Новости</h2>
+                <div class="news-item">
+                    <h3 id="news1Title">Второй выпуск в разработке</h3>
+                    <p id="news1Desc">Работа над продолжением идет полным ходом. Следите за обновлениями.</p>
+                    <div class="news-date">15 марта 2025</div>
+                </div>
+                <div class="news-item">
+                    <h3 id="news2Title">Первый выпуск доступен для чтения</h3>
+                    <p id="news2Desc">Все страницы первого выпуска уже на сайте. Приятного чтения!</p>
+                    <div class="news-date">1 марта 2025</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="contactsPage" class="page">
+        <div class="main-container">
+            <div class="contacts-page">
+                <h2 id="contactsTitle">Связь с автором</h2>
+                <p id="contactsDesc">Вопросы, предложения, отзывы — напишите мне!</p>
+                <div class="contacts-buttons">
+                    <a href="mailto:znamensky@example.com" class="contact-btn" id="contactEmailBtn">📧 Email</a>
+                    <a href="https://t.me/znamensky" target="_blank" class="contact-btn" id="contactTelegramBtn">💬 Telegram</a>
+                    <a href="https://instagram.com/znamensky" target="_blank" class="contact-btn" id="contactInstaBtn">📸 Instagram</a>
+                    <a href="https://wa.me/71234567890" target="_blank" class="contact-btn" id="contactWABtn">📱 WhatsApp</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p id="footerText">© 2025 Эжен Знаменский — медицинские хроники</p>
+    </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+    // ========== ОПРЕДЕЛЕНИЕ УСТРОЙСТВА И КОЛИЧЕСТВА СТРАНИЦ ==========
+    function isMobileDevice() {
+        if (window.innerWidth <= 768) return true;
+        const ua = navigator.userAgent || navigator.vendor || window.opera;
+        const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile/i;
+        return mobileRegex.test(ua);
+    }
+    
+    // Разное количество страниц для ПК и мобильных
+    // ПК: 23 страницы (до 23)
+    // Мобильные: 32 страницы (до 32 - полная версия главы "Круговерть")
+    let isMobile = isMobileDevice();
+    let totalPages = isMobile ? 32 : 23;
+    
+    // Следим за изменением размера окна
+    window.addEventListener('resize', () => {
+        const newIsMobile = isMobileDevice();
+        if (newIsMobile !== isMobile) {
+            isMobile = newIsMobile;
+            totalPages = isMobile ? 32 : 23;
+            loadComic();
+            // Обновляем главы (меняется количество страниц в последней главе)
+            updateChaptersForDevice();
+            renderChapterDropdown();
+        }
+    });
+    
+    // Функция обновления границ глав в зависимости от устройства
+    function updateChaptersForDevice() {
+        if (isMobile) {
+            // Для мобильных: последняя глава идет до 31 индекса (32 страницы, индексы 0-31)
+            chapters[4].end = 31;
+        } else {
+            // Для ПК: последняя глава до 22 индекса (23 страницы)
+            chapters[4].end = 22;
+        }
+    }
+    
+    // Формируем пути к страницам
+    const getPagePath = (pageNumber) => {
+        if (isMobile) {
+            return `images/Комикс Выпуск №1 стр ${pageNumber}.jpg`;
+        } else {
+            return `images/Комикс Выпуск №1_стр${pageNumber}.jpg`;
+        }
+    };
+    
+    // Все страницы
+    let allPages = [];
+    function updateAllPages() {
+        allPages = [];
+        for (let i = 1; i <= totalPages; i++) {
+            allPages.push(getPagePath(i));
+        }
+    }
+    updateAllPages();
+
+    // ГЛАВЫ - границы будут обновлены в updateChaptersForDevice()
+    const chapters = [
+        { name: { ru: "Обложка и аннотация", en: "Cover & Intro", de: "Cover & Einleitung" }, start: 0, end: 3 },
+        { name: { ru: "Глава 1: Больше!", en: "Chapter 1: More!", de: "Kapitel 1: Mehr!" }, start: 4, end: 6 },
+        { name: { ru: "Глава 2: Парафин", en: "Chapter 2: Paraffin", de: "Kapitel 2: Paraffin" }, start: 7, end: 11 },
+        { name: { ru: "Глава 3: К черту", en: "Chapter 3: To Hell", de: "Kapitel 3: Zur Hölle" }, start: 12, end: 17 },
+        { name: { ru: "Глава 4: Круговерть", en: "Chapter 4: Whirlwind", de: "Kapitel 4: Wirbel" }, start: 18, end: 22 } // будет обновлено
+    ];
+    
+    // Инициализируем границы глав
+    updateChaptersForDevice();
+
+    const issues = {
+        1: { name: { ru: "Выпуск 1", en: "Issue 1", de: "Ausgabe 1" }, available: true, totalPages: totalPages },
+        2: { name: { ru: "Выпуск 2", en: "Issue 2", de: "Ausgabe 2" }, available: false, totalPages: 0 }
+    };
+
+    let currentLang = localStorage.getItem('comic-lang') || 'ru';
+    let currentIssue = 1;
+    let currentSwiper = null;
+
+    const translations = {
+        ru: {
+            footerText: "© 2025 Эжен Знаменский — медицинские хроники",
+            selectChapter: "Главы",
+            comingSoon: "Скоро будет",
+            newsTitle: "Новости",
+            news1Title: "Второй выпуск в разработке",
+            news1Desc: "Работа над продолжением идет полным ходом. Следите за обновлениями.",
+            news2Title: "Первый выпуск доступен для чтения",
+            news2Desc: "Все страницы первого выпуска уже на сайте. Приятного чтения!",
+            contactsTitle: "Связь с автором",
+            contactsDesc: "Вопросы, предложения, отзывы — напишите мне!",
+            homeText: "На главную",
+            newsText: "Новости",
+            contactsText: "Контакты",
+            darkTheme: "Темная тема",
+            lightTheme: "Светлая тема"
+        },
+        en: {
+            footerText: "© 2025 Eugene Znamensky — medical chronicles",
+            selectChapter: "Chapters",
+            comingSoon: "Coming soon",
+            newsTitle: "News",
+            news1Title: "Second issue in development",
+            news1Desc: "Work on the continuation is in full swing. Stay tuned.",
+            news2Title: "First issue available",
+            news2Desc: "All pages of the first issue are on the site. Enjoy reading!",
+            contactsTitle: "Contact the Author",
+            contactsDesc: "Questions, suggestions, feedback — reach out!",
+            homeText: "Home",
+            newsText: "News",
+            contactsText: "Contacts",
+            darkTheme: "Dark theme",
+            lightTheme: "Light theme"
+        },
+        de: {
+            footerText: "© 2025 Eugen Znamenski — medizinische Chroniken",
+            selectChapter: "Kapitel",
+            comingSoon: "Demnächst",
+            newsTitle: "Nachrichten",
+            news1Title: "Zweite Ausgabe in Entwicklung",
+            news1Desc: "Die Arbeit an der Fortsetzung läuft auf Hochtouren.",
+            news2Title: "Erste Ausgabe verfügbar",
+            news2Desc: "Alle Seiten der ersten Ausgabe sind auf der Website.",
+            contactsTitle: "Kontakt zum Autor",
+            contactsDesc: "Fragen, Vorschläge, Feedback — schreib mir!",
+            homeText: "Startseite",
+            newsText: "Nachrichten",
+            contactsText: "Kontakte",
+            darkTheme: "Dunkles Thema",
+            lightTheme: "Helles Thema"
+        }
+    };
+
+    function updateLanguage() {
+        const t = translations[currentLang];
+        document.getElementById('footerText').textContent = t.footerText;
+        document.getElementById('selectedChapter').textContent = t.selectChapter;
+        document.getElementById('newsTitle').textContent = t.newsTitle;
+        document.getElementById('news1Title').textContent = t.news1Title;
+        document.getElementById('news1Desc').textContent = t.news1Desc;
+        document.getElementById('news2Title').textContent = t.news2Title;
+        document.getElementById('news2Desc').textContent = t.news2Desc;
+        document.getElementById('contactsTitle').textContent = t.contactsTitle;
+        document.getElementById('contactsDesc').textContent = t.contactsDesc;
+        document.getElementById('homeMenuItem').innerHTML = `${t.homeText}`;
+        document.getElementById('newsMenuItem').innerHTML = `${t.newsText}`;
+        document.getElementById('contactsMenuItem').innerHTML = `${t.contactsText}`;
+        
+        const isDark = document.body.classList.contains('dark-theme');
+        document.getElementById('themeText').innerHTML = isDark ? t.darkTheme : t.lightTheme;
+        
+        document.querySelectorAll('.menu-lang-option').forEach(opt => {
+            if (opt.dataset.lang === currentLang) opt.classList.add('active');
+            else opt.classList.remove('active');
+        });
+        
+        document.getElementById('selectedIssue').textContent = issues[currentIssue].name[currentLang];
+        renderIssueDropdown();
+        renderChapterDropdown();
+    }
+
+    function renderIssueDropdown() {
+        const dropdown = document.getElementById('issueDropdown');
+        dropdown.innerHTML = '';
+        for (let id in issues) {
+            const issue = issues[id];
+            const option = document.createElement('div');
+            option.className = 'select-option';
+            if (!issue.available) option.classList.add('disabled');
+            option.textContent = issue.name[currentLang] + (!issue.available ? ` (${translations[currentLang].comingSoon})` : '');
+            if (issue.available) {
+                option.onclick = () => {
+                    if (parseInt(id) !== currentIssue) {
+                        currentIssue = parseInt(id);
+                        document.getElementById('selectedIssue').textContent = issue.name[currentLang];
+                        loadComic();
+                        document.getElementById('issueSelector').classList.remove('open');
+                    }
+                };
+            }
+            dropdown.appendChild(option);
+        }
+    }
+
+    function renderChapterDropdown() {
+        const dropdown = document.getElementById('chapterDropdown');
+        dropdown.innerHTML = '';
+        chapters.forEach((chapter, idx) => {
+            const option = document.createElement('div');
+            option.className = 'select-option';
+            option.textContent = chapter.name[currentLang];
+            option.onclick = () => {
+                if (currentSwiper) {
+                    currentSwiper.slideTo(chapter.start, 400);
+                }
+                document.getElementById('chapterSelector').classList.remove('open');
+            };
+            dropdown.appendChild(option);
+        });
+    }
+
+    function loadComic() {
+        // Обновляем totalPages для текущего устройства
+        totalPages = isMobile ? 32 : 23;
+        issues[1].totalPages = totalPages;
+        
+        // Обновляем пути к страницам
+        updateAllPages();
+        
+        const wrapper = document.getElementById('swiperWrapper');
+        wrapper.innerHTML = '';
+        
+        for (let i = 0; i < totalPages; i++) {
+            const slide = document.createElement('div');
+            slide.className = 'swiper-slide comic-slide';
+            const img = document.createElement('img');
+            img.src = allPages[i];
+            img.alt = `Страница ${i+1}`;
+            img.loading = 'lazy';
+            slide.appendChild(img);
+            wrapper.appendChild(slide);
+        }
+        
+        if (currentSwiper) currentSwiper.destroy(true, true);
+        currentSwiper = new Swiper('.comic-swiper', {
+            direction: 'horizontal',
+            loop: false,
+            slidesPerView: 1,
+            spaceBetween: 0,
+            centeredSlides: false,
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            pagination: { el: '.swiper-pagination', type: 'fraction' },
+            keyboard: { enabled: true },
+            touchRatio: 1,
+            simulateTouch: true,
+            autoHeight: true,
+            watchSlidesProgress: true
+        });
+    }
+
+    function setTheme(theme) {
+        const t = translations[currentLang];
+        const themeIcon = document.getElementById('themeIcon');
+        const themeText = document.getElementById('themeText');
+        
+        if (theme === 'light') {
+            document.body.classList.remove('dark-theme');
+            document.body.classList.add('light-theme');
+            localStorage.setItem('comic-theme', 'light');
+            if (themeIcon) themeIcon.textContent = '☀️';
+            if (themeText) themeText.innerHTML = t.lightTheme;
+        } else {
+            document.body.classList.remove('light-theme');
+            document.body.classList.add('dark-theme');
+            localStorage.setItem('comic-theme', 'dark');
+            if (themeIcon) themeIcon.textContent = '🌙';
+            if (themeText) themeText.innerHTML = t.darkTheme;
+        }
+    }
+
+    function toggleTheme() {
+        const isDark = document.body.classList.contains('dark-theme');
+        setTheme(isDark ? 'light' : 'dark');
+    }
+
+    function detectSystemTheme() {
+        const saved = localStorage.getItem('comic-theme');
+        if (saved) {
+            setTheme(saved);
+        } else {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            setTheme(prefersDark ? 'dark' : 'light');
+        }
+    }
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        const saved = localStorage.getItem('comic-theme');
+        if (!saved) {
+            setTheme(e.matches ? 'dark' : 'light');
+        }
+    });
+
+    function setLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem('comic-lang', lang);
+        updateLanguage();
+    }
+
+    function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+        document.getElementById('sideMenu').classList.remove('open');
+    }
+
+    detectSystemTheme();
+    updateLanguage();
+    loadComic();
+
+    document.getElementById('burgerBtn').addEventListener('click', () => {
+        document.getElementById('sideMenu').classList.add('open');
+    });
+    document.getElementById('menuCloseBtn').addEventListener('click', () => {
+        document.getElementById('sideMenu').classList.remove('open');
+    });
+    document.getElementById('homeMenuItem').addEventListener('click', () => showPage('mainPage'));
+    document.getElementById('newsMenuItem').addEventListener('click', () => showPage('newsPage'));
+    document.getElementById('contactsMenuItem').addEventListener('click', () => showPage('contactsPage'));
+    document.getElementById('homeLogo').addEventListener('click', () => showPage('mainPage'));
+
+    const menuThemeItem = document.getElementById('menuThemeItem');
+    menuThemeItem.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleTheme();
+    });
+
+    const issueSelector = document.getElementById('issueSelector');
+    const chapterSelector = document.getElementById('chapterSelector');
+    issueSelector.querySelector('.select-btn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        issueSelector.classList.toggle('open');
+        chapterSelector.classList.remove('open');
+    });
+    chapterSelector.querySelector('.select-btn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        chapterSelector.classList.toggle('open');
+        issueSelector.classList.remove('open');
+    });
+    document.addEventListener('click', () => {
+        issueSelector.classList.remove('open');
+        chapterSelector.classList.remove('open');
+    });
+
+    document.querySelectorAll('.menu-lang-option').forEach(opt => {
+        opt.addEventListener('click', (e) => {
+            e.stopPropagation();
+            setLanguage(opt.dataset.lang);
+            document.getElementById('sideMenu').classList.remove('open');
+        });
+    });
+</script>
+</body>
+</html>
